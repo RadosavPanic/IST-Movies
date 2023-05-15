@@ -10,6 +10,7 @@ import {
   TextField,
   Select,
   MenuItem,
+  InputAdornment,
 } from "@mui/material";
 import { ContentContainer } from "./manipulation.styles";
 import { Fragment, useContext, useState } from "react";
@@ -68,6 +69,10 @@ const Manipulation = () => {
                   >
                     {rowIndex === index && columnIndex === 0 ? (
                       <TextField
+                        label="Name"
+                        variant="standard"
+                        color="secondary"
+                        helperText="Enter movie name"
                         value={row.nameOfMovie}
                         onChange={(e) =>
                           handleTextFieldChange(
@@ -90,6 +95,10 @@ const Manipulation = () => {
                   >
                     {rowIndex === index && columnIndex === 1 ? (
                       <TextField
+                        label="Director"
+                        variant="standard"
+                        color="secondary"
+                        helperText="Enter movie director"
                         value={row.director}
                         onChange={(e) =>
                           handleTextFieldChange(row, "director", e.target.value)
@@ -108,6 +117,11 @@ const Manipulation = () => {
                   >
                     {rowIndex === index && columnIndex === 2 ? (
                       <TextField
+                        label="Rating"
+                        variant="standard"
+                        color="secondary"
+                        sx={{ width: "80px" }}
+                        helperText="Enter movie rating"
                         value={row.rating}
                         onChange={(e) =>
                           handleTextFieldChange(row, "rating", e.target.value)
@@ -126,6 +140,11 @@ const Manipulation = () => {
                   >
                     {rowIndex === index && columnIndex === 3 ? (
                       <TextField
+                        label="Year"
+                        variant="standard"
+                        color="secondary"
+                        helperText="Enter year of release"
+                        sx={{ width: "80px" }}
                         value={row.yearOfRelease}
                         onChange={(e) =>
                           handleTextFieldChange(
@@ -148,6 +167,16 @@ const Manipulation = () => {
                   >
                     {rowIndex === index && columnIndex === 4 ? (
                       <TextField
+                        label="Length"
+                        variant="standard"
+                        color="secondary"
+                        helperText="Enter movie length"
+                        sx={{ width: "100px" }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">mins</InputAdornment>
+                          ),
+                        }}
                         value={row.lengthOfMovie}
                         onChange={(e) =>
                           handleTextFieldChange(
@@ -170,6 +199,7 @@ const Manipulation = () => {
                   >
                     {rowIndex === index && columnIndex === 5 ? (
                       <Select
+                        size="small"
                         value={row.is3D ? "true" : "false"}
                         onChange={(e) => {
                           const parsedValue = e.target.value === "true";
