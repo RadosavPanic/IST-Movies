@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="70" height="70" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <circle
+        r="33.5"
+        cx="35"
+        cy="35"
+        fill="none"
+        stroke="#0B5345"
+        stroke-width="2.5px"
+      />
+
+      <rect
+        rx="28"
+        ry="14"
+        x="7"
+        y="7"
+        height="56"
+        width="56"
+        fill="steelblue" />
+
+      <polygon fill="red" points="14,14 56,14 56,52" />
+      <polygon fill="black" points="13,56 56,55 13,16 " />
+
+      <text x="22" y="34" fill="white" font-size="18">IST</text>
+      <text x="15" y="47" fill="white" font-size="13">Movies</text>
+</svg>
