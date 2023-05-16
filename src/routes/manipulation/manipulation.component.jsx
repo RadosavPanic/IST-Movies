@@ -11,6 +11,7 @@ import {
   Select,
   MenuItem,
   InputAdornment,
+  Tooltip,
 } from "@mui/material";
 import { ContentContainer } from "./manipulation.styles";
 import { Fragment, useContext, useState } from "react";
@@ -26,6 +27,59 @@ const Manipulation = () => {
 
   const [rowIndex, setRowIndex] = useState(-1);
   const [columnIndex, setColumnIndex] = useState(-1);
+
+  // Set made to distinct different genres, then converted to genres array using Array.from
+  let genresArray = [
+    "Action",
+    "Thriller",
+    "Superhero",
+    "Heist",
+    "Comedy",
+    "Romance",
+    "Drama",
+    "Mafia",
+    "Sci-Fi",
+    "Fantasy",
+    "Crime",
+    "Mystery",
+    "Adventure",
+    "Detective",
+    "Prison",
+    "Horror",
+    "History",
+    "War",
+    "Neo-noir",
+    "Indie",
+  ];
+  const [genresList, setGenresList] = useState([]);
+
+  /* const handleAddGenres = (e) => {
+    const value = e.target.value;
+    setGenresList(typeof value === "string" ? value.split(",") : value);
+  }; */
+
+  const handleExitEditMode = () => {
+    setRowIndex(-1);
+    setColumnIndex(-1);
+  };
+
+  const handleAddGenres = (event, row) => {
+    const selectedGenres = event.target.value;
+    setGenresList(selectedGenres);
+
+    const updatedRow = { ...row, genres: selectedGenres };
+    handleUpdateMovie(updatedRow);
+  };
+
+  const handleDoubleClickGenres = (row, index) => {
+    setGenresList(row.genres);
+    setRowIndex(index);
+    setColumnIndex(6);
+  };
+
+  const handleExitMultipleSelect = (event) => {
+    if (event.key === "Enter") handleExitEditMode();
+  };
 
   const handleTextFieldChange = (row, fieldName, value) => {
     const updatedRow = { ...row, [fieldName]: value };
@@ -53,9 +107,10 @@ const Manipulation = () => {
               <TableCell align="center">Length</TableCell>
               <TableCell align="center">is3D</TableCell>
               <TableCell align="center">Genres</TableCell>
-              <TableCell></TableCell>
+              <TableCell>Manipulation</TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
             {movies && movies.length > 0 ? (
               movies.map((row, index) => (
@@ -74,6 +129,11 @@ const Manipulation = () => {
                         color="secondary"
                         helperText="Enter movie name"
                         value={row.nameOfMovie}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter") {
+                            handleExitEditMode();
+                          }
+                        }}
                         onChange={(e) =>
                           handleTextFieldChange(
                             row,
@@ -100,6 +160,11 @@ const Manipulation = () => {
                         color="secondary"
                         helperText="Enter movie director"
                         value={row.director}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter") {
+                            handleExitEditMode();
+                          }
+                        }}
                         onChange={(e) =>
                           handleTextFieldChange(row, "director", e.target.value)
                         }
@@ -123,6 +188,11 @@ const Manipulation = () => {
                         sx={{ width: "80px" }}
                         helperText="Enter movie rating"
                         value={row.rating}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter") {
+                            handleExitEditMode();
+                          }
+                        }}
                         onChange={(e) =>
                           handleTextFieldChange(row, "rating", e.target.value)
                         }
@@ -146,6 +216,11 @@ const Manipulation = () => {
                         helperText="Enter year of release"
                         sx={{ width: "80px" }}
                         value={row.yearOfRelease}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter") {
+                            handleExitEditMode();
+                          }
+                        }}
                         onChange={(e) =>
                           handleTextFieldChange(
                             row,
@@ -178,6 +253,11 @@ const Manipulation = () => {
                           ),
                         }}
                         value={row.lengthOfMovie}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter") {
+                            handleExitEditMode();
+                          }
+                        }}
                         onChange={(e) =>
                           handleTextFieldChange(
                             row,
@@ -190,6 +270,7 @@ const Manipulation = () => {
                       Number(row.lengthOfMovie)
                     )}
                   </TableCell>
+
                   <TableCell
                     align="center"
                     onDoubleClick={() => {
@@ -200,14 +281,11 @@ const Manipulation = () => {
                     {rowIndex === index && columnIndex === 5 ? (
                       <Select
                         size="small"
+                        color="secondary"
                         value={row.is3D ? "true" : "false"}
                         onChange={(e) => {
                           const parsedValue = e.target.value === "true";
                           handleTextFieldChange(row, "is3D", parsedValue);
-                          setRowIndex(-1);
-                          setColumnIndex(-1);
-                        }}
-                        onBlur={() => {
                           setRowIndex(-1);
                           setColumnIndex(-1);
                         }}
@@ -219,26 +297,80 @@ const Manipulation = () => {
                       <Fragment>{row.is3D ? "Yes" : "No"}</Fragment>
                     )}
                   </TableCell>
-                  <TableCell align="center">{row.genres.join(", ")}</TableCell>
+
+                  <TableCell
+                    align="center"
+                    onDoubleClick={() => {
+                      handleDoubleClickGenres(row, index);
+                    }}
+                    onKeyDown={(event) => handleExitMultipleSelect(event)}
+                  >
+                    {rowIndex === index && columnIndex === 6 ? (
+                      <TextField
+                        label="Select genres"
+                        color="secondary"
+                        size="small"
+                        select
+                        fullWidth
+                        sx={{ width: 200 }}
+                        value={genresList}
+                        onChange={(event) => handleAddGenres(event, row)}
+                        SelectProps={{
+                          multiple: true,
+                          renderValue: (selected) => {
+                            if (selected.length > 3) {
+                              return selected.slice(0, 3).join(", ") + " ...";
+                            }
+                            return selected.join(", ");
+                          },
+                        }}
+                      >
+                        {genresArray.map((genre) => (
+                          <MenuItem key={genre} value={genre}>
+                            {genre}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    ) : row.genres.length > 5 ? (
+                      <Fragment>{`${row.genres.slice(0, 3).join(", ")}... +${
+                        row.genres.length - 3
+                      }`}</Fragment>
+                    ) : (
+                      row.genres.slice(0, 3).join(", ")
+                    )}
+                  </TableCell>
 
                   <TableCell>
-                    <IconButton
-                      variant="contained"
-                      color="primary"
-                      disableRipple
-                      onClick={() => handleUpdateMovie(row)}
+                    <Tooltip
+                      title="Edit row"
+                      placement="top-start"
+                      enterDelay={900}
                     >
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton
-                      variant="contained"
-                      color="error"
-                      sx={{ ml: 1 }}
-                      disableRipple
-                      onClick={() => handleDeleteMovie(row)}
+                      <IconButton
+                        variant="contained"
+                        color="primary"
+                        disableRipple
+                        onClick={() => handleUpdateMovie(row)}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </Tooltip>
+
+                    <Tooltip
+                      title="Delete row"
+                      placement="top-start"
+                      enterDelay={900}
                     >
-                      <DeleteIcon />
-                    </IconButton>
+                      <IconButton
+                        variant="contained"
+                        color="error"
+                        sx={{ ml: 1 }}
+                        disableRipple
+                        onClick={() => handleDeleteMovie(row)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
                   </TableCell>
                 </TableRow>
               ))
