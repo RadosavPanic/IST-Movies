@@ -72,10 +72,6 @@ const Manipulation = () => {
     setColumnIndex(6);
   };
 
-  const handleExitMultipleSelect = (event) => {
-    if (event.key === "Enter") handleExitEditMode();
-  };
-
   const handleTextFieldChange = (row, fieldName, value) => {
     const updatedRow = { ...row, [fieldName]: value };
     updateMovieInList(updatedRow);
@@ -298,7 +294,9 @@ const Manipulation = () => {
                     onDoubleClick={() => {
                       handleDoubleClickGenres(row, index);
                     }}
-                    onKeyDown={(event) => handleExitMultipleSelect(event)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") handleExitEditMode();
+                    }}
                   >
                     {rowIndex === index && columnIndex === 6 ? (
                       <TextField
