@@ -53,11 +53,6 @@ const Manipulation = () => {
   ];
   const [genresList, setGenresList] = useState([]);
 
-  /* const handleAddGenres = (e) => {
-    const value = e.target.value;
-    setGenresList(typeof value === "string" ? value.split(",") : value);
-  }; */
-
   const handleExitEditMode = () => {
     setRowIndex(-1);
     setColumnIndex(-1);
