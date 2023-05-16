@@ -16,10 +16,16 @@ import {
   MenuItem,
   InputAdornment,
   Tooltip,
+  Box,
+  Button,
+  Modal,
+  Typography,
+  Fab,
 } from "@mui/material";
 
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import LoupeIcon from "@mui/icons-material/Loupe";
 
 const Manipulation = () => {
   const { moviesList, updateMovieInList, deleteMovieFromList } =
@@ -30,6 +36,8 @@ const Manipulation = () => {
 
   const [rowIndex, setRowIndex] = useState(-1);
   const [columnIndex, setColumnIndex] = useState(-1);
+
+  const [openModal, setOpenModal] = useState(false);
 
   const genresArray = [
     "Action",
@@ -78,6 +86,14 @@ const Manipulation = () => {
     updateMovieInList(updatedRow);
   };
 
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
   const handleDeleteMovie = (movieToDelete) => {
     deleteMovieFromList(movieToDelete);
   };
@@ -86,8 +102,63 @@ const Manipulation = () => {
     updateMovieInList(movieToUpdate);
   };
 
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
   return (
     <ContentContainer>
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
+        <TextField
+          label="Sort option"
+          size="small"
+          color="secondary"
+          select
+          sx={{ width: 150 }}
+        >
+          <MenuItem value="name">Name</MenuItem>
+          <MenuItem value="director">Director</MenuItem>
+          <MenuItem value="rating">Rating</MenuItem>
+          <MenuItem value="year">Year</MenuItem>
+          <MenuItem value="length">Length</MenuItem>
+          <MenuItem value="genres">Genres</MenuItem>
+        </TextField>
+
+        <Fab
+          variant="extended"
+          color="success"
+          size="medium"
+          disableRipple
+          onClick={handleOpenModal}
+        >
+          <LoupeIcon sx={{ mr: 1 }} />
+          Add New
+        </Fab>
+
+        <Modal
+          open={openModal}
+          onClose={handleCloseModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            </Typography>
+          </Box>
+        </Modal>
+      </Box>
       <TableContainer component={Paper} sx={{ maxHeight: "610px" }}>
         <Table aria-label="crud table" stickyHeader>
           <TableHead>
@@ -325,7 +396,7 @@ const Manipulation = () => {
                           </MenuItem>
                         ))}
                       </TextField>
-                    ) : row.genres.length > 5 ? (
+                    ) : row.genres.length > 3 ? (
                       <Fragment>{`${row.genres.slice(0, 3).join(", ")}... +${
                         row.genres.length - 3
                       }`}</Fragment>
@@ -342,7 +413,7 @@ const Manipulation = () => {
                     >
                       <IconButton
                         variant="contained"
-                        color="primary"
+                        color="success"
                         disableRipple
                         onClick={() => handleUpdateMovie(row)}
                       >
