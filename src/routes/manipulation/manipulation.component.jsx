@@ -1,3 +1,7 @@
+import { Fragment, useContext, useState } from "react";
+import { MoviesContext } from "../../contexts/movies-context/movies.context";
+
+import { ContentContainer } from "./manipulation.styles";
 import {
   Paper,
   TableContainer,
@@ -13,9 +17,6 @@ import {
   InputAdornment,
   Tooltip,
 } from "@mui/material";
-import { ContentContainer } from "./manipulation.styles";
-import { Fragment, useContext, useState } from "react";
-import { MoviesContext } from "../../contexts/movies-context/movies.context";
 
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -25,11 +26,12 @@ const Manipulation = () => {
     useContext(MoviesContext);
   const { moviesList: movies } = moviesList;
 
+  const [genresList, setGenresList] = useState([]);
+
   const [rowIndex, setRowIndex] = useState(-1);
   const [columnIndex, setColumnIndex] = useState(-1);
 
-  // Set made to distinct different genres, then converted to genres array using Array.from
-  let genresArray = [
+  const genresArray = [
     "Action",
     "Thriller",
     "Superhero",
@@ -51,7 +53,6 @@ const Manipulation = () => {
     "Neo-noir",
     "Indie",
   ];
-  const [genresList, setGenresList] = useState([]);
 
   const handleExitEditMode = () => {
     setRowIndex(-1);
@@ -88,7 +89,7 @@ const Manipulation = () => {
   return (
     <ContentContainer>
       <TableContainer component={Paper} sx={{ maxHeight: "610px" }}>
-        <Table aria-label="simple table" stickyHeader>
+        <Table aria-label="crud table" stickyHeader>
           <TableHead>
             <TableRow>
               <TableCell align="center">Name</TableCell>
@@ -98,7 +99,7 @@ const Manipulation = () => {
               <TableCell align="center">Length</TableCell>
               <TableCell align="center">is3D</TableCell>
               <TableCell align="center">Genres</TableCell>
-              <TableCell>Manipulation</TableCell>
+              <TableCell align="center">Manipulation</TableCell>
             </TableRow>
           </TableHead>
 
