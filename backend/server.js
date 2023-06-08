@@ -4,7 +4,7 @@ import cors from "cors";
 
 const app = express();
 
-const port = 5000;
+const port = 3005;
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
@@ -36,6 +36,4 @@ app.get("/projections", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-    console.log(`App is active on port: http://localhost:${port}`);
-});
+app.listen(port);
