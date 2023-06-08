@@ -6,6 +6,8 @@ import { MOVIE_ACTION_TYPES } from "./movie.types";
 
 import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
 
+import axios from "axios";
+
 const addMovie = (moviesList, movieToAdd) => {
   return [...moviesList, movieToAdd];
 };
@@ -62,11 +64,22 @@ export const MoviesProvider = ({ children }) => {
     addCollectionAndDocuments("movies", DATA);
   }, []); */
 
-  useEffect(() => {
+  /* useEffect(() => {
     const getCategoriesMap = async () => {
       const categoryMap = await getCategoriesAndDocuments();
       const movieData = categoryMap.all_movies;
 
+      const action = createAction(MOVIE_ACTION_TYPES.SET_MOVIES, movieData);
+      dispatchMovies(action);
+    };
+    getCategoriesMap();
+  }, []); */
+
+  useEffect(() => {
+    const getCategoriesMap = async () => {
+      const categoryMap = await axios.get("http://localhost:5000/movies");
+      const movieData = categoryMap.data;
+      
       const action = createAction(MOVIE_ACTION_TYPES.SET_MOVIES, movieData);
       dispatchMovies(action);
     };
