@@ -1,5 +1,8 @@
-import { Fragment, useContext, useState } from "react";
-import { MoviesContext } from "../../contexts/movies-context/movies.context";
+import { Fragment, useState } from "react";
+
+import { useSelector } from "react-redux";
+import { selectMovies } from "../../store/movies/movie.selector";
+import { updateMovie, removeMovie } from "../../store/movies/movie.reducer";
 
 import { ContentContainer } from "./manipulation.styles";
 import {
@@ -17,7 +20,6 @@ import {
   InputAdornment,
   Tooltip,
   Box,
-  Button,
   Modal,
   Typography,
   Fab,
@@ -28,9 +30,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import LoupeIcon from "@mui/icons-material/Loupe";
 
 const Manipulation = () => {
-  const { moviesList, updateMovieInList, deleteMovieFromList } =
-    useContext(MoviesContext);
-  const { moviesList: movies } = moviesList;
+  const movies = useSelector(selectMovies);
 
   const [genresList, setGenresList] = useState([]);
 
@@ -83,7 +83,7 @@ const Manipulation = () => {
 
   const handleTextFieldChange = (row, fieldName, value) => {
     const updatedRow = { ...row, [fieldName]: value };
-    updateMovieInList(updatedRow);
+    updateMovie(updatedRow);
   };
 
   const handleOpenModal = () => {
@@ -94,12 +94,12 @@ const Manipulation = () => {
     setOpenModal(false);
   };
 
-  const handleDeleteMovie = (movieToDelete) => {
-    deleteMovieFromList(movieToDelete);
+  const handleRemoveMovie = (movieToRemove) => {
+    removeMovie(movieToRemove);
   };
 
   const handleUpdateMovie = (movieToUpdate) => {
-    updateMovieInList(movieToUpdate);
+    updateMovie(movieToUpdate);
   };
 
   const style = {
@@ -431,7 +431,7 @@ const Manipulation = () => {
                         color="error"
                         sx={{ ml: 1 }}
                         disableRipple
-                        onClick={() => handleDeleteMovie(row)}
+                        onClick={() => handleRemoveMovie(row)}
                       >
                         <DeleteIcon />
                       </IconButton>

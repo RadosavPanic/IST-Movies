@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { MoviesContext } from "../../contexts/movies-context/movies.context";
+import { useSelector } from "react-redux";
+import { selectMovies } from "../../store/movies/movie.selector";
 
 import Movie from "../movie/movie.component";
 
@@ -10,8 +10,7 @@ import {
 } from "./movies-preview.styles";
 
 const MoviesPreview = () => {
-  const { moviesList } = useContext(MoviesContext);
-  const { moviesList: movies } = moviesList;
+  const movies = useSelector(selectMovies);
 
   return (
     <MoviesContainer>

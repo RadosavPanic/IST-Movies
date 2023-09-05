@@ -1,4 +1,4 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
 
 import Movie from "../movie/movie.component";
 
@@ -10,13 +10,12 @@ import {
 } from "./movies-list.styles";
 import { Typography } from "@mui/material";
 
-import { MoviesContext } from "../../contexts/movies-context/movies.context";
+import { selectMovies } from "../../store/movies/movie.selector";
+import { useSelector } from "react-redux";
 
 const MoviesList = () => {
-  const { moviesList } = useContext(MoviesContext);
-  console.log(moviesList);
-  const { moviesList: movies } = moviesList;
-  console.log(movies);
+  const movies = useSelector(selectMovies);
+
   return (
     <Fragment>
       <HeaderContainer>

@@ -1,14 +1,32 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 
 import TopNavigation from "./routes/navigation/top-nav.component";
 import BottomNavigation from "./routes/navigation/bottom-nav.component";
 
+import { useDispatch } from "react-redux";
+import axios from "axios";
+
 import Home from "./routes/home/home.component";
 import MoviesList from "./components/movies-list/movies-list.component";
 import Manipulation from "./routes/manipulation/manipulation.component";
 
+import { setMovies } from "./store/movies/movie.reducer";
+
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getMoviesMap = async () => {
+      const moviesMap = await axios.get("http://localhost:3005/movies");
+      const movieData = moviesMap.data;
+
+      dispatch(setMovies(movieData));
+    };
+
+    getMoviesMap();
+  }, []);
+
   return (
     <Routes>
       <Route
