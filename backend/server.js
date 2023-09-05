@@ -6,33 +6,32 @@ const app = express();
 
 const port = 3005;
 
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
 const getMovies = async () => {
-    const categories = await getCategoriesAndDocuments();
-    const moviesList = categories.all_movies;
-    return moviesList;
-}
+  const categories = await getCategoriesAndDocuments();
+  const moviesList = categories.all_movies;
+  return moviesList;
+};
 
 app.get("/movies", async (req, res) => {
-    try {
-        const movies = await getMovies();
-        res.status(200).json(movies);
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
-      }
+  try {
+    const movies = await getMovies();
+    res.status(200).json(movies);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 app.get("/projections", async (req, res) => {
   try {
-      res.json({example: "example"});
-      }
-  catch(error) {
+    res.json({ example: "example" });
+  } catch (error) {
     console.error(error);
-    res.status(500).json({error: "Internal Server Error"});
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

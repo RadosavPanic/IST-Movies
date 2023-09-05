@@ -4,8 +4,6 @@ import { createAction } from "../../utils/reducer/reducer.utils";
 
 import { MOVIE_ACTION_TYPES } from "./movie.types";
 
-import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
-
 import axios from "axios";
 
 const addMovie = (moviesList, movieToAdd) => {
@@ -77,9 +75,9 @@ export const MoviesProvider = ({ children }) => {
 
   useEffect(() => {
     const getCategoriesMap = async () => {
-      const categoryMap = await axios.get("http://localhost:5000/movies");
+      const categoryMap = await axios.get("http://localhost:3005/movies");
       const movieData = categoryMap.data;
-      
+
       const action = createAction(MOVIE_ACTION_TYPES.SET_MOVIES, movieData);
       dispatchMovies(action);
     };
