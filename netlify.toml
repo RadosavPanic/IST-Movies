@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "frontend/build"
+
+[[plugins]]
+  package = "@netlify/plugin-functions"
+  [plugins.inputs]
+    nodeModulesPath = "./backend/node_modules"
+    functionsDir = "backend"
+
+[build.environment]
+  NODE_ENV = "production"
