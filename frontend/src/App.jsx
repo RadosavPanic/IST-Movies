@@ -13,12 +13,13 @@ import Manipulation from "./routes/manipulation/manipulation.component";
 
 import { setMovies } from "./store/movies/movie.reducer";
 
-function App() {
+const App = () => {
   const dispatch = useDispatch();
-
   useEffect(() => {
     const getMoviesMap = async () => {
-      const moviesMap = await axios.get("http://localhost:3005/movies");
+      const moviesMap = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/movies`
+      );
       const movieData = moviesMap.data;
 
       dispatch(setMovies(movieData));
@@ -45,6 +46,6 @@ function App() {
       </Route>
     </Routes>
   );
-}
+};
 
 export default App;
