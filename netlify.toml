@@ -3,7 +3,7 @@
   publish = "frontend/build"
 
 [[plugins]]
-  package = "@netlify/plugin-functions"
+  package = "@netlify/functions"
   [plugins.inputs]
     nodeModulesPath = "./backend/node_modules"
     functionsDir = "backend"
