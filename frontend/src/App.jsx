@@ -26,7 +26,7 @@ const App = () => {
     };
 
     getMoviesMap();
-  }, []);
+  }, [dispatch]);
 
   return (
     <Routes>
