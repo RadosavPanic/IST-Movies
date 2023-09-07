@@ -2,12 +2,6 @@
   command = "CI= yarn build"
   publish = "frontend/build"
 
-[[plugins]]
-  package = "@netlify/functions"
-  [plugins.inputs]
-    nodeModulesPath = "./backend/node_modules"
-    functionsDir = "backend"
-
 [build.environment]
   NODE_ENV = "production"
   

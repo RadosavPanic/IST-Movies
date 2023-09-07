@@ -5,7 +5,5 @@
   "repository": "https://github.com/RadosavPanic/IST-Movies.git",
   "author": "RadosavPanic <radosav.panic01@gmail.com>",
   "license": "MIT",
-  "devDependencies": {
-    "@netlify/functions": "^2.0.2"
-  }
+  "devDependencies": {}
 }
