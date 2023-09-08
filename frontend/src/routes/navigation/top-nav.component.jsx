@@ -33,6 +33,10 @@ const TopNavigation = () => {
           <NavLink underline="hover" href="manipulation">
             Manipulation
           </NavLink>
+
+          <NavLink underline="hover" href="hall">
+            Hall
+          </NavLink>
         </LinkStack>
       </Toolbar>
     </TopNavBar>
