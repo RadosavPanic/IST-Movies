@@ -11,7 +11,7 @@ const updateMovieItem = (moviesList, movieToUpdate) => {
 };
 
 const removeMovieItem = (moviesList, movieToRemove) => {
-  return moviesList.moviesList.filter((movie) => movie.id !== movieToRemove.id);
+  return moviesList.filter((movie) => movie.id !== movieToRemove.id);
 };
 
 export const MOVIES_INITIAL_STATE = {

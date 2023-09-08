@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react";
-
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+
 import { selectMovies } from "../../store/movies/movie.selector";
 import { updateMovie, removeMovie } from "../../store/movies/movie.reducer";
 
@@ -31,6 +32,7 @@ import LoupeIcon from "@mui/icons-material/Loupe";
 
 const Manipulation = () => {
   const movies = useSelector(selectMovies);
+  const dispatch = useDispatch();
 
   const [genresList, setGenresList] = useState([]);
 
@@ -62,6 +64,14 @@ const Manipulation = () => {
     "Indie",
   ];
 
+  const handleRemoveMovie = (movieToRemove) => {
+    dispatch(removeMovie(movieToRemove));
+  };
+
+  const handleUpdateMovie = (movieToUpdate) => {
+    dispatch(updateMovie(movieToUpdate));
+  };
+
   const handleExitEditMode = () => {
     setRowIndex(-1);
     setColumnIndex(-1);
@@ -72,7 +82,7 @@ const Manipulation = () => {
     setGenresList(selectedGenres);
 
     const updatedRow = { ...row, genres: selectedGenres };
-    handleUpdateMovie(updatedRow);
+    dispatch(handleUpdateMovie(updatedRow));
   };
 
   const handleDoubleClickGenres = (row, index) => {
@@ -83,7 +93,7 @@ const Manipulation = () => {
 
   const handleTextFieldChange = (row, fieldName, value) => {
     const updatedRow = { ...row, [fieldName]: value };
-    updateMovie(updatedRow);
+    dispatch(updateMovie(updatedRow));
   };
 
   const handleOpenModal = () => {
@@ -92,14 +102,6 @@ const Manipulation = () => {
 
   const handleCloseModal = () => {
     setOpenModal(false);
-  };
-
-  const handleRemoveMovie = (movieToRemove) => {
-    removeMovie(movieToRemove);
-  };
-
-  const handleUpdateMovie = (movieToUpdate) => {
-    updateMovie(movieToUpdate);
   };
 
   const style = {
