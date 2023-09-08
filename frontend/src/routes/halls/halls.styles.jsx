@@ -1,14 +1,18 @@
+import styled from "styled-components";
 import {
   ImageList,
   Container,
   ImageListItem,
   ImageListItemBar,
 } from "@mui/material";
-import styled from "styled-components";
 
 export const BaseContainer = styled(Container)`
   margin: 40px 0;
   height: 100%;
+`;
+
+export const HeaderContainer = styled(Container)`
+  margin-top: 40px;
 `;
 
 export const ImageGroup = styled(ImageList)`
@@ -24,9 +28,11 @@ export const ImageItem = styled(ImageListItem)`
 `;
 
 export const Image = styled.img`
-  border-radius: 20% 20% 0 0;
+  border-radius: 20% 5% 0 0;
   -webkit-user-drag: none;
   user-select: none;
+  width: 100%;
+  height: 250px;
 `;
 
 export const ImageDescription = styled(ImageListItemBar)`
