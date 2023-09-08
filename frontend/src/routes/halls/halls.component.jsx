@@ -1,12 +1,11 @@
-import { Fragment } from "react";
+import { IconButton } from "@mui/material";
 import {
-  ImageList,
-  ImageListItem,
-  ListSubheader,
-  ImageListItemBar,
-  IconButton,
-  Container,
-} from "@mui/material";
+  BaseContainer,
+  Image,
+  ImageDescription,
+  ImageGroup,
+  ImageItem,
+} from "./halls.styles";
 import InfoIcon from "@mui/icons-material/Info";
 
 const itemData = [
@@ -83,22 +82,19 @@ const itemData = [
   },
 ];
 
-const Hall = () => {
+const Halls = () => {
   return (
-    <Container>
-      <ImageList sx={{ width: 500, height: 450 }}>
-        <ImageListItem key="Subheader" cols={2}>
-          <ListSubheader component="div">December</ListSubheader>
-        </ImageListItem>
+    <BaseContainer sx={{ border: "1px solid black" }}>
+      <ImageGroup>
         {itemData.map((item) => (
-          <ImageListItem key={item.img}>
-            <img
+          <ImageItem key={item.img}>
+            <Image
               src={`${item.img}?w=248&fit=crop&auto=format`}
               srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
               alt={item.title}
               loading="lazy"
             />
-            <ImageListItemBar
+            <ImageDescription
               title={item.title}
               subtitle={item.author}
               actionIcon={
@@ -110,11 +106,11 @@ const Hall = () => {
                 </IconButton>
               }
             />
-          </ImageListItem>
+          </ImageItem>
         ))}
-      </ImageList>
-    </Container>
+      </ImageGroup>
+    </BaseContainer>
   );
 };
 
-export default Hall;
+export default Halls;

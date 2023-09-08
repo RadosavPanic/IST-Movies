@@ -1,4 +1,4 @@
-import { ReactComponent as ISTMoviesIkona } from "../../assets/ist-movies.svg";
+import { ReactComponent as ISTMoviesIcon } from "../../assets/ist-movies.svg";
 
 import { Toolbar, IconButton } from "@mui/material";
 
@@ -9,7 +9,7 @@ const TopNavigation = () => {
     <TopNavBar>
       <Toolbar>
         <IconButton edge="start" href="/" disableRipple>
-          <ISTMoviesIkona />
+          <ISTMoviesIcon />
         </IconButton>
 
         <TopNavBarText variant="h6">IST Movies</TopNavBarText>
@@ -30,12 +30,12 @@ const TopNavigation = () => {
             All Movies
           </NavLink>
 
-          <NavLink underline="hover" href="manipulation">
-            Manipulation
+          <NavLink underline="hover" href="halls">
+            Halls
           </NavLink>
 
-          <NavLink underline="hover" href="hall">
-            Hall
+          <NavLink underline="hover" href="manipulation">
+            Manipulation
           </NavLink>
         </LinkStack>
       </Toolbar>

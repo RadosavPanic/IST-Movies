@@ -1,7 +1,7 @@
 import { Fragment, useEffect } from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import Hall from "./components/hall/hall.component";
+import Halls from "./routes/halls/halls.component";
 
 import axios from "axios";
 import { setMovies } from "./store/movies/movie.reducer";
@@ -43,8 +43,8 @@ const App = () => {
       >
         <Route index element={<Home />} />
         <Route path="movies" element={<MoviesList />} />
+        <Route path="halls" element={<Halls />} />
         <Route path="manipulation" element={<Manipulation />} />
-        <Route path="hall" element={<Hall />} />
       </Route>
     </Routes>
   );
