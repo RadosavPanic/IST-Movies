@@ -28,7 +28,7 @@ export const ImageItem = styled(ImageListItem)`
 `;
 
 export const Image = styled.img`
-  border-radius: 20% 5% 0 0;
+  border-radius: 25% 5% 0 0;
   -webkit-user-drag: none;
   user-select: none;
   width: 100%;
@@ -38,7 +38,7 @@ export const Image = styled.img`
 export const ImageDescription = styled(ImageListItemBar)`
   width: 60%;
   margin-left: 20%;
-  border-radius: 20% 0 20% 0;
+  border-radius: 20% 0% 20% 0%;
   background-color: rgba(255, 50, 0, 1) !important;
   user-select: none;
 `;
