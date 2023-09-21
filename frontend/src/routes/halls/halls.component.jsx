@@ -18,14 +18,17 @@ const Halls = () => {
 
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedHall, setSelectedHall] = useState(null);
 
-  const handleOpen = (event) => {
+  const handleOpen = (event, hall) => {
     setAnchorEl(event.currentTarget);
     setPopoverOpen(true);
+    setSelectedHall(hall);
   };
   const handleClose = () => {
     setAnchorEl(null);
     setPopoverOpen(false);
+    setSelectedHall(null);
   };
 
   return (
@@ -51,7 +54,7 @@ const Halls = () => {
                 <IconButton
                   sx={{ color: "rgba(255, 255, 255, 0.54)" }}
                   aria-label={`info about ${hall.title}`}
-                  onClick={handleOpen}
+                  onClick={(event) => handleOpen(event, hall)}
                 >
                   <InfoIcon />
                 </IconButton>
@@ -64,12 +67,14 @@ const Halls = () => {
               anchorOrigin={{ vertical: "center", horizontal: "center" }}
               transformOrigin={{ vertical: "top", horizontal: "center" }}
             >
-              <Container>
-                <Typography>Name: {hall.hallName}</Typography>
-                <Typography>Type: {hall.hallType}</Typography>
-                <Typography>Capacity: {hall.capacity}</Typography>
-                <Typography>Floor: {hall.floor}</Typography>
-              </Container>
+              {selectedHall && (
+                <Container>
+                  <Typography>Name: {selectedHall.hallName}</Typography>
+                  <Typography>Type: {selectedHall.hallType}</Typography>
+                  <Typography>Capacity: {selectedHall.capacity}</Typography>
+                  <Typography>Floor: {selectedHall.floor}</Typography>
+                </Container>
+              )}
             </Popover>
           </ImageItem>
         ))}
