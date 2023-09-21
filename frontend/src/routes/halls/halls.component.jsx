@@ -8,10 +8,14 @@ import {
   HeaderContainer,
 } from "./halls.styles";
 import InfoIcon from "@mui/icons-material/Info";
+
 import { useState } from "react";
-import { hallsData } from "../../halldata";
+import { useSelector } from "react-redux";
+import { selectHalls } from "../../store/halls/halls.selector";
 
 const Halls = () => {
+  const halls = useSelector(selectHalls);
+
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -32,7 +36,7 @@ const Halls = () => {
         </Typography>
       </HeaderContainer>
       <ImageGroup>
-        {hallsData.map((hall) => (
+        {halls.map((hall) => (
           <ImageItem key={hall.img}>
             <Image
               src={hall.img}

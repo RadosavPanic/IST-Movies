@@ -11,9 +11,13 @@ app.use(express.json());
 app.use(cors());
 
 const getMovies = async () => {
-  const categories = await getCategoriesAndDocuments();
-  const moviesList = categories.all_movies;
-  return moviesList;
+  const { all_movies } = await getCategoriesAndDocuments("movies");
+  return all_movies;
+};
+
+const getHalls = async () => {
+  const { all_halls } = await getCategoriesAndDocuments("halls");
+  return all_halls;
 };
 
 app.get("/movies", async (req, res) => {
@@ -23,6 +27,16 @@ app.get("/movies", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/halls", async (req, res) => {
+  try {
+    const halls = await getHalls();
+    res.status(200).json(halls);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

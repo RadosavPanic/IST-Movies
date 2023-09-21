@@ -47,8 +47,8 @@ export const addCollectionAndDocuments = async (
 };
 
 // Getting categories and documents from collection
-export const getCategoriesAndDocuments = async () => {
-  const collectionRef = collection(db, "movies");
+export const getCategoriesAndDocuments = async (collectionName) => {
+  const collectionRef = collection(db, collectionName);
 
   const q = query(collectionRef);
 
@@ -62,4 +62,3 @@ export const getCategoriesAndDocuments = async () => {
 
   return movieMap;
 };
-

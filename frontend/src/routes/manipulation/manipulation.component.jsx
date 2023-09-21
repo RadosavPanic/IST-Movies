@@ -1,6 +1,5 @@
 import { Fragment, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { selectMovies } from "../../store/movies/movie.selector";
 import { updateMovie, removeMovie } from "../../store/movies/movie.reducer";
