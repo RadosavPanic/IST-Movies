@@ -23,7 +23,7 @@ const middleWares = [process.env.NODE_ENV === "development" && logger].filter(
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["movies, halls"],
+  whitelist: ["movies, halls, projections, reservations"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -13,6 +13,7 @@ import Home from "./routes/home/home.component";
 import MoviesList from "./components/movies-list/movies-list.component";
 import Halls from "./routes/halls/halls.component";
 import Manipulation from "./routes/manipulation/manipulation.component";
+import Reservations from "./routes/reservations/reservations.component";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="movies" element={<MoviesList />} />
         <Route path="halls" element={<Halls />} />
+        <Route path="reservations" element={<Reservations />} />
         <Route path="manipulation" element={<Manipulation />} />
       </Route>
     </Routes>
