@@ -81,7 +81,7 @@ const Manipulation = () => {
     setGenresList(selectedGenres);
 
     const updatedRow = { ...row, genres: selectedGenres };
-    dispatch(handleUpdateMovie(updatedRow));
+    dispatch(updateMovie(updatedRow));
   };
 
   const handleDoubleClickGenres = (row, index) => {

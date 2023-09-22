@@ -20,6 +20,16 @@ const getHalls = async () => {
   return all_halls;
 };
 
+const getProjections = async () => {
+  const { all_projections } = await getCategoriesAndDocuments("projections");
+  return all_projections;
+};
+
+const getReservations = async () => {
+  const { all_reservations } = await getCategoriesAndDocuments("reservations");
+  return all_reservations;
+};
+
 app.get("/movies", async (req, res) => {
   try {
     const movies = await getMovies();
@@ -42,10 +52,21 @@ app.get("/halls", async (req, res) => {
 
 app.get("/projections", async (req, res) => {
   try {
-    res.json({ example: "example" });
+    const projections = await getProjections();
+    res.status(200).json(projections);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.get("/reservations", async (req, res) => {
+  try {
+    const reservations = await getReservations();
+    res.status(200).json(reservations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
